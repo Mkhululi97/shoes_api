@@ -9,7 +9,7 @@ export default function shoesApi() {
       const shoeList = await ShoeFunctions.getAllShoes();
       res.status(200).json(shoeList);
     } catch (err) {
-      console.log(err);
+      res.status(500).json({ message: err.message }); //send errors as json, since this is json api //(500) error on the server not from client
     }
   }
   async function getAllShoesByBrand(req, res) {
@@ -44,10 +44,39 @@ export default function shoesApi() {
       console.log(err);
     }
   }
+  async function addShoe(req, res) {
+    try {
+      const addShoeToList = await ShoeFunctions.addShoe({
+        brand: req.body.brand,
+        name: req.body.name,
+        size: req.body.size,
+        color: req.body.color,
+        quantity: req.body.quantity,
+        price: req.body.price,
+        image: req.body.image,
+      });
+      res.status(201).json({ message: "Shoe added to the database" });
+    } catch (err) {
+      console.log(err);
+      res.status(500).json({ message: err.message }); //send errors as json, since this is json api //(500) error on the server not from client
+    }
+  }
+  async function updateInventory(req, res) {
+    try {
+      await ShoeFunctions.updateInventory(req.params.id);
+      res
+        .status(201)
+        .json({ message: `Quantity for ${req.params.id} shoe updated` });
+    } catch (err) {
+      console.log(err);
+    }
+  }
   return {
     getAllShoes,
     getAllShoesByBrand,
     getAllShoesBySize,
     getAllShoesByBrandAndSize,
+    addShoe,
+    updateInventory,
   };
 }

@@ -8,3 +8,19 @@ GET http://localhost:3004/api/shoes/size/7
 
 ###
 GET http://localhost:3004/api/shoes/brand/Moschino/size/7
+
+###
+POST http://localhost:3004/api/shoes
+Content-Type: application/json
+
+{
+  "brand":"NAKED WOLFE",
+  "name":"NAKED WOLFE MAN SNOW SNEAKER KOSA 00148",
+  "size":"11",
+  "color":"White",
+  "quantity":"5",
+  "image":"https://www.hydraulicsstores.co.za/wp-content/uploads/2023/10/Side-4727-800x1000.jpg"
+}
+
+###
+POST http://localhost:3004/api/shoes/sold/3
