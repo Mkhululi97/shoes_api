@@ -1,5 +1,6 @@
 import express from "express";
 import ShoesApi from "../api/shoes-api.js";
+import hideEndpoint from "../middleware/check-auth.js";
 const router = express.Router();
 const shoesApi = ShoesApi();
 
@@ -15,5 +16,5 @@ router.get("/brand/:brandname/size/:size", shoesApi.getAllShoesByBrandAndSize);
 // updating inventory
 router.post("/sold/:id", shoesApi.updateInventory);
 // adding a shoe
-router.post("/", shoesApi.addShoe);
+router.post("/", hideEndpoint, shoesApi.addShoe);
 export default router;

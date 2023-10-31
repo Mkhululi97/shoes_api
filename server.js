@@ -5,6 +5,7 @@ import session from "express-session";
 import db from "./database.js";
 import dotenv from "dotenv";
 import shoesRouter from "./routes/shoes-routes.js";
+import usersRouter from "./routes/users-routes.js";
 dotenv.config();
 
 let app = express();
@@ -44,6 +45,7 @@ app.post("/insert", async function insert(req, res) {
 /* For populating table with data, purposes only */
 
 app.use("/api/shoes", shoesRouter);
+app.use("/api/users", usersRouter);
 
 let PORT = process.env.PORT || 3004;
 app.listen(PORT, () => console.log(`App started on port ${PORT}`));
