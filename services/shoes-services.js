@@ -4,6 +4,13 @@ export default function shoeFunctions(db) {
       "SELECT * FROM shoe_api_schema.shoe_details ORDER BY id ASC"
     );
   }
+  async function getShoeById(id) {
+    console.log(id);
+    return await db.oneOrNone(
+      "SELECT brand,name,size,color,price FROM shoe_api_schema.shoe_details WHERE id=$1",
+      id
+    );
+  }
   async function getAllShoesByBrand(brand) {
     return await db.any(
       "SELECT * FROM shoe_api_schema.shoe_details WHERE brand=$1",
@@ -41,6 +48,7 @@ export default function shoeFunctions(db) {
   }
   return {
     getAllShoes,
+    getShoeById,
     getAllShoesByBrand,
     getAllShoesBySize,
     getAllShoesByBrandAndSize,

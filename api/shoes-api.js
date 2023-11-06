@@ -12,6 +12,14 @@ export default function shoesApi() {
       res.status(500).json({ message: err.message }); //send errors as json, since this is json api //(500) error on the server not from client
     }
   }
+  async function getShoeById(req, res) {
+    try {
+      const shoeDetails = await ShoeFunctions.getShoeById(req.params.id);
+      res.status(200).json(shoeDetails);
+    } catch (err) {
+      console.log(err);
+    }
+  }
   async function getAllShoesByBrand(req, res) {
     try {
       const shoeListByBrand = await ShoeFunctions.getAllShoesByBrand(
@@ -73,6 +81,7 @@ export default function shoesApi() {
   }
   return {
     getAllShoes,
+    getShoeById,
     getAllShoesByBrand,
     getAllShoesBySize,
     getAllShoesByBrandAndSize,
