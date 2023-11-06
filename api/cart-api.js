@@ -8,8 +8,7 @@ export default function shoesApi() {
     try {
       const inputmail = req.params.email;
       const cart = await CartFunctions.getCart(inputmail);
-      let total = "34000.0";
-      return res.status(200).json({ cart, total });
+      return res.status(200).json({ cart });
     } catch (err) {
       res.status(500).json({ message: err.message }); //send errors as json, since this is json api //(500) error on the server not from client
     }
