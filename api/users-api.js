@@ -12,17 +12,23 @@ export default function usersApi() {
           error: err,
         });
       } else {
+        let result;
         try {
-          await Users.userSignup({
+          result = await Users.userSignup({
             password: hash,
             email: req.body.email,
             is_admin: req.body.is_admin,
           });
-          res.status(201).json({
-            message: "User Created",
-          });
+          if (result === undefined) {
+            res.status(201).json({
+              message: "User Created",
+            });
+          } else {
+            res.status(409).json({ message: result });
+            next();
+          }
         } catch (err) {
-          res.status(409).json({ message: "Mail Exists" });
+          console.log(err);
         }
       }
     });
@@ -32,7 +38,6 @@ export default function usersApi() {
     try {
       let user = await Users.userLogin({ email: req.body.email });
       bcrypt.compare(req.body.password, user.password, (err, result) => {
-        console.log(result, err);
         if (err) {
           return res.status(401).json({
             message: "Auth failed",

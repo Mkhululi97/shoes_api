@@ -2,7 +2,7 @@ POST http://localhost:3004/api/users/signup
 Content-Type: application/json
 
 {
-  "email": "test1@test.com",
+  "email": "test@test.com",
   "password": "tester",
   "is_admin": false
 }
@@ -12,6 +12,6 @@ POST http://localhost:3004/api/users/login
 Content-Type: application/json
 
 {
-  "email": "test1@test.com",
+  "email": "test@test.com",
   "password": "tester"
 }

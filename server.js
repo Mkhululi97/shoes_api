@@ -69,6 +69,8 @@ app.post("/api/users/login", usersApi.userLogin);
 import CartApi from "./api/cart-api.js";
 const cartApi = CartApi();
 app.get("/api/cart/:email", hideEndpoint, cartApi.getCart);
+app.post("/api/cart/add", cartApi.add);
+app.post("/api/cart/remove", cartApi.remove);
 
 /* -------------- CART ROUTES -------------- */
 

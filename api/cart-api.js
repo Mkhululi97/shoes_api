@@ -4,6 +4,30 @@ import db from "../database.js";
 const CartFunctions = cartFunctions(db);
 
 export default function shoesApi() {
+  async function add(req, res) {
+    try {
+      await CartFunctions.add(req.body.email, req.body.shoe_id);
+      res.status(200).json({ message: "shoe added to cart" });
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  async function remove(req, res, next) {
+    try {
+      let result = await CartFunctions.remove(req.body.email, req.body.shoe_id);
+
+      if (result === undefined) {
+        res.status(201).json({
+          message: "Shoe updated on the",
+        });
+      } else {
+        res.status(409).json({ message: result });
+        next();
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  }
   async function getCart(req, res) {
     try {
       const inputmail = req.params.email;
@@ -15,6 +39,8 @@ export default function shoesApi() {
   }
 
   return {
+    add,
+    remove,
     getCart,
   };
 }

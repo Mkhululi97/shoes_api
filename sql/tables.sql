@@ -20,7 +20,7 @@ CREATE TABLE shoe_api_schema.cart(
     id SERIAL PRIMARY KEY,
     user_id INT,
     FOREIGN KEY(user_id) REFERENCES shoe_api_schema.users(id) ON UPDATE CASCADE ON DELETE CASCADE,
-    cart_status INT
+    --cart_status INT
 )
 -- Orders Table
 CREATE TABLE shoe_api_schema.orders(

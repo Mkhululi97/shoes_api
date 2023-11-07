@@ -8,8 +8,9 @@ function hideEndpoint(req, res, next) {
     req.userData = decoded;
     next();
   } catch (err) {
+    console.log(err);
     return res.status(401).json({
-      message: "Auth failed",
+      message: "Auth failed from middleware",
     });
   }
 }
