@@ -83,7 +83,7 @@ export default function shoeFunctions(db) {
       [email]
     );
     let shoesArr = await db.any(
-      `SELECT shoe_id, name, qty, size, new_price
+      `SELECT shoe_id, name, qty, size, new_price, image_url
       FROM shoe_api_schema.orders AS orders
       INNER JOIN shoe_api_schema.shoe_details AS shoe_det ON shoe_det.id=orders.shoe_id
       INNER JOIN shoe_api_schema.cart AS cart ON cart.id=orders.cart_id
@@ -98,9 +98,31 @@ export default function shoeFunctions(db) {
     cartid = cartid[0].cart_id;
     return { cartid, email, shoesArr, totalCart };
   }
+  async function deleteCartItem(shoe_id) {
+    let error;
+    // try {
+    //   let shoeidcheck = await db.oneOrNone(
+    //     "SELECT id FROM shoe_api_schema.orders WHERE shoe_id = $1",
+    //     [shoe_id]
+    //   );
+    //   if (!shoeidcheck) {
+    //     await db.none("DELETE FROM shoe_api_schema.orders WHERE shoe_id=$1", [
+    //       shoe_id,
+    //     ]);
+    //   } else {
+    //     error = "shoe is not the cart";
+    //   }
+    // } catch (err) {
+    //   console.log(err);
+    // }
+    await db.none("DELETE FROM shoe_api_schema.orders WHERE shoe_id=$1", [
+      shoe_id,
+    ]);
+  }
   return {
     add,
     remove,
+    deleteCartItem,
     getCart,
   };
 }

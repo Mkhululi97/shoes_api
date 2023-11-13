@@ -7,7 +7,7 @@ export default function shoeFunctions(db) {
   async function getShoeById(id) {
     console.log(id);
     return await db.oneOrNone(
-      "SELECT brand,name,size,color,price FROM shoe_api_schema.shoe_details WHERE id=$1",
+      "SELECT brand,name,size,color,new_price FROM shoe_api_schema.shoe_details WHERE id=$1",
       id
     );
   }
@@ -30,10 +30,11 @@ export default function shoeFunctions(db) {
     );
   }
   async function addShoe(shoeDetails) {
-    const { brand, name, size, color, quantity, price, image } = shoeDetails;
+    const { brand, name, size, color, quantity, new_price, image } =
+      shoeDetails;
     await db.none(
-      "insert into shoe_api_schema.shoe_details (brand, name, size, color, quantity, price, image_url) values($1, $2, $3, $4, $5, $6, $7)",
-      [brand, name, size, color, quantity, price, image]
+      "insert into shoe_api_schema.shoe_details (brand, name, size, color, quantity, new_price, image_url) values($1, $2, $3, $4, $5, $6, $7)",
+      [brand, name, size, color, quantity, new_price, image]
     );
   }
   async function updateInventory(id) {

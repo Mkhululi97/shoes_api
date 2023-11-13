@@ -3,6 +3,8 @@ import { engine } from "express-handlebars";
 import bodyParser from "body-parser";
 import session from "express-session";
 import dotenv from "dotenv";
+import cors from "cors";
+
 dotenv.config();
 
 const app = express();
@@ -21,7 +23,7 @@ app.use(
     saveUninitialized: true,
   })
 );
-
+app.use(cors({ origin: "*" }));
 /* ---------- For populating table with data, purposes only ---------- */
 // app.get("/", (req, res) => {
 //   res.render("index");
@@ -68,9 +70,11 @@ app.post("/api/users/login", usersApi.userLogin);
 /* -------------- CART ROUTES -------------- */
 import CartApi from "./api/cart-api.js";
 const cartApi = CartApi();
-app.get("/api/cart/:email", hideEndpoint, cartApi.getCart);
+// app.get("/api/cart/:email", hideEndpoint, cartApi.getCart);
+app.get("/api/cart/:email", cartApi.getCart);
 app.post("/api/cart/add", cartApi.add);
 app.post("/api/cart/remove", cartApi.remove);
+app.post("/api/cart/delete", cartApi.deleteCartItem);
 
 /* -------------- CART ROUTES -------------- */
 

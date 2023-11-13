@@ -37,10 +37,19 @@ export default function shoesApi() {
       res.status(500).json({ message: err.message }); //send errors as json, since this is json api //(500) error on the server not from client
     }
   }
-
+  async function deleteCartItem(req, res) {
+    try {
+      const inputshoeid = req.body.shoe_id;
+      await CartFunctions.deleteCartItem(inputshoeid);
+    } catch (err) {
+      res.json({ err: err });
+      console.log(err);
+    }
+  }
   return {
     add,
     remove,
+    deleteCartItem,
     getCart,
   };
 }
