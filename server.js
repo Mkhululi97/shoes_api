@@ -23,7 +23,7 @@ app.use(
     saveUninitialized: true,
   })
 );
-app.use(cors({ origin: "*" }));
+app.use(cors());
 /* ---------- For populating table with data, purposes only ---------- */
 // app.get("/", (req, res) => {
 //   res.render("index");
