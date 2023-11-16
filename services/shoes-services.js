@@ -5,7 +5,6 @@ export default function shoeFunctions(db) {
     );
   }
   async function getShoeById(id) {
-    console.log(id);
     return await db.oneOrNone(
       "SELECT brand,name,size,color,new_price FROM shoe_api_schema.shoe_details WHERE id=$1",
       id
@@ -23,10 +22,36 @@ export default function shoeFunctions(db) {
       [size]
     );
   }
+  async function getAllShoesByColor(color) {
+    return await db.any(
+      "SELECT * FROM shoe_api_schema.shoe_details WHERE color=$1",
+      [color]
+    );
+  }
+
   async function getAllShoesByBrandAndSize(brand, size) {
     return await db.any(
       "SELECT * FROM shoe_api_schema.shoe_details WHERE brand=$1 AND size=$2",
       [brand, size]
+    );
+  }
+  async function getAllShoesByBrandAndColor(brand, color) {
+    return await db.any(
+      "SELECT * FROM shoe_api_schema.shoe_details WHERE brand=$1 AND color=$2",
+      [brand, color]
+    );
+  }
+  async function getAllShoesBySizeAndColor(size, color) {
+    return await db.any(
+      "SELECT * FROM shoe_api_schema.shoe_details WHERE size=$1 AND color=$2",
+      [size, color]
+    );
+  }
+  async function getAllShoesByBrandAndSizeAndColor(shoeDetails) {
+    const { brand, size, color } = shoeDetails;
+    return await db.any(
+      "SELECT * FROM shoe_api_schema.shoe_details WHERE brand=$1 AND size=$2 AND color=$3",
+      [brand, size, color]
     );
   }
   async function addShoe(shoeDetails) {
@@ -52,7 +77,11 @@ export default function shoeFunctions(db) {
     getShoeById,
     getAllShoesByBrand,
     getAllShoesBySize,
+    getAllShoesByColor,
     getAllShoesByBrandAndSize,
+    getAllShoesByBrandAndColor,
+    getAllShoesBySizeAndColor,
+    getAllShoesByBrandAndSizeAndColor,
     addShoe,
     updateInventory,
   };

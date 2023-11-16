@@ -52,6 +52,7 @@ app.get("/api/shoes", shoesApi.getAllShoes);
 app.get("/api/shoes/:id", shoesApi.getShoeById);
 app.get("/api/shoes/brand/:brandname", shoesApi.getAllShoesByBrand);
 app.get("/api/shoes/size/:size", shoesApi.getAllShoesBySize);
+app.get("/api/shoes/color/:color", shoesApi.getAllShoesByColor);
 app.get(
   "/api/shoes/brand/:brandname/size/:size",
   shoesApi.getAllShoesByBrandAndSize

@@ -24,7 +24,7 @@ export default function usersApi() {
               message: "User Created",
             });
           } else {
-            res.status(409).json({ message: result });
+            res.json({ message: result });
             next();
           }
         } catch (err) {
