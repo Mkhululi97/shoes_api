@@ -61,6 +61,10 @@ app.get(
   "/api/shoes/brand/:brandname/color/:color",
   shoesApi.getAllShoesByBrandAndColor
 );
+app.get(
+  "/api/shoes/size/:size/color/:color",
+  shoesApi.getAllShoesBySizeAndColor
+);
 app.post("/api/shoes/sold/:id", shoesApi.updateInventory);
 app.post("/api/shoes/", hideEndpoint, shoesApi.addShoe);
 /* -------------- SHOE ROUTES -------------- */

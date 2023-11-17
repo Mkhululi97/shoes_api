@@ -74,7 +74,18 @@ export default function shoesApi() {
       console.log(err);
     }
   }
-  async function getAllShoesBySizeAndColor() {}
+  async function getAllShoesBySizeAndColor(req, res) {
+    try {
+      const shoeListBySizeAndColor =
+        await ShoeFunctions.getAllShoesBySizeAndColor(
+          req.params.size,
+          req.params.color
+        );
+      res.status(200).json(shoeListBySizeAndColor);
+    } catch (err) {
+      console.log(err);
+    }
+  }
   async function getAllShoesByBrandAndSizeAndColor() {}
   async function addShoe(req, res) {
     try {
