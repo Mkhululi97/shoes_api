@@ -19,7 +19,7 @@ GET http://localhost:3004/api/shoes/brand/Moschino/size/7
 GET http://localhost:3004/api/shoes/brand/Moschino/color/Brown
 
 ###
-GET http://localhost:3004/api/shoes/size/9/color/
+GET http://localhost:3004/api/shoes/size/9/color/Black
 
 ###
 GET http://localhost:3004/api/shoes/brand/Moschino/size/7/color/Black
