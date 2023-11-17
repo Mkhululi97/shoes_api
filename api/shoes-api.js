@@ -86,7 +86,19 @@ export default function shoesApi() {
       console.log(err);
     }
   }
-  async function getAllShoesByBrandAndSizeAndColor() {}
+  async function getAllShoesByBrandAndSizeAndColor(req, res) {
+    try {
+      const shoeListByBrandAndSizeAndColor =
+        await ShoeFunctions.getAllShoesByBrandAndSizeAndColor({
+          brand: req.params.brandname,
+          size: req.params.size,
+          color: req.params.color,
+        });
+      res.status.json(shoeListByBrandAndSizeAndColor);
+    } catch (err) {
+      console.log(err);
+    }
+  }
   async function addShoe(req, res) {
     try {
       await ShoeFunctions.addShoe({
