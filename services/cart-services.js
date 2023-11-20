@@ -83,7 +83,7 @@ export default function shoeFunctions(db) {
       [email]
     );
     let shoesArr = await db.any(
-      `SELECT shoe_id, name, qty, size, new_price, image_url
+      `SELECT shoe_id, name, qty, size, new_price, image_url, (qty*new_price) AS total
       FROM shoe_api_schema.orders AS orders
       INNER JOIN shoe_api_schema.shoe_details AS shoe_det ON shoe_det.id=orders.shoe_id
       INNER JOIN shoe_api_schema.cart AS cart ON cart.id=orders.cart_id
@@ -126,3 +126,5 @@ export default function shoeFunctions(db) {
     getCart,
   };
 }
+//check this out to fix your dynamic price for single shoe bought more than once
+// SELECT (qyt*new_price) AS total;
