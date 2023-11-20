@@ -46,10 +46,19 @@ export default function shoesApi() {
       console.log(err);
     }
   }
+  async function cartPayment(req, res) {
+    try {
+      await CartFunctions.cartPayment();
+      res.json({ message: "cart cleared" });
+    } catch (err) {
+      console.log(err);
+    }
+  }
   return {
     add,
     remove,
     deleteCartItem,
     getCart,
+    cartPayment,
   };
 }

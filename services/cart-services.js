@@ -99,15 +99,23 @@ export default function Cart(db) {
     return { cartid, email, shoesArr, totalCart };
   }
   async function deleteCartItem(shoe_id) {
-    let error;
     await db.none("DELETE FROM shoe_api_schema.orders WHERE shoe_id=$1", [
       shoe_id,
     ]);
+  }
+  async function cartPayment() {
+    //restore total to zero
+
+    //remove all cart items
+    return await db.none(
+      "DELETE FROM shoe_api_schema.cart WHERE user_id=1 RESTART IDENTITY CASCADE"
+    );
   }
   return {
     add,
     remove,
     deleteCartItem,
     getCart,
+    cartPayment,
   };
 }

@@ -88,6 +88,7 @@ app.get("/api/cart/:email", cartApi.getCart);
 app.post("/api/cart/add", cartApi.add);
 app.post("/api/cart/remove", cartApi.remove);
 app.post("/api/cart/delete", cartApi.deleteCartItem);
+app.post("/api/cart/payment", cartApi.cartPayment);
 
 /* -------------- CART ROUTES -------------- */
 

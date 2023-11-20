@@ -25,6 +25,10 @@ content-type: application/json
 { 
   "shoe_id":10
 }
+
+
+### Cart payment
+POST http://localhost:3004/api/cart/payment
  
 
 ### Pay from cart
