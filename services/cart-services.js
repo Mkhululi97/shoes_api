@@ -1,4 +1,4 @@
-export default function shoeFunctions(db) {
+export default function Cart(db) {
   async function add(email, shoe_id) {
     try {
       let user_id = await db.any(
@@ -100,21 +100,6 @@ export default function shoeFunctions(db) {
   }
   async function deleteCartItem(shoe_id) {
     let error;
-    // try {
-    //   let shoeidcheck = await db.oneOrNone(
-    //     "SELECT id FROM shoe_api_schema.orders WHERE shoe_id = $1",
-    //     [shoe_id]
-    //   );
-    //   if (!shoeidcheck) {
-    //     await db.none("DELETE FROM shoe_api_schema.orders WHERE shoe_id=$1", [
-    //       shoe_id,
-    //     ]);
-    //   } else {
-    //     error = "shoe is not the cart";
-    //   }
-    // } catch (err) {
-    //   console.log(err);
-    // }
     await db.none("DELETE FROM shoe_api_schema.orders WHERE shoe_id=$1", [
       shoe_id,
     ]);
@@ -126,5 +111,3 @@ export default function shoeFunctions(db) {
     getCart,
   };
 }
-//check this out to fix your dynamic price for single shoe bought more than once
-// SELECT (qyt*new_price) AS total;
