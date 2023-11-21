@@ -54,7 +54,7 @@ export default function usersApi() {
               expiresIn: "1h",
             }
           );
-          res.status(200).json({
+          return res.status(200).json({
             message: "Auth successful",
             token: token,
           });

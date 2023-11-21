@@ -9,6 +9,7 @@ export default function Cart(db) {
         `SELECT id FROM shoe_api_schema.cart WHERE user_id=$1`,
         [user_id[0].id]
       );
+      console.log(cartcheck);
       // //insert into the cart table the id of the user with matching email
       if (cartcheck === null) {
         await db.any(`INSERT INTO shoe_api_schema.cart (user_id) VALUES($1)`, [
