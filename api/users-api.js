@@ -39,8 +39,9 @@ export default function usersApi() {
       let user = await Users.userLogin({ email: req.body.email });
       bcrypt.compare(req.body.password, user.password, (err, result) => {
         if (err) {
+          console.log(err);
           return res.status(401).json({
-            message: "Auth failed",
+            message: "Auth failed from password compare",
           });
         }
         if (result) {
@@ -54,7 +55,9 @@ export default function usersApi() {
               expiresIn: "1h",
             }
           );
+          user = { email: user.email, is_admin: user.is_admin };
           return res.status(200).json({
+            user: user,
             message: "Auth successful",
             token: token,
           });
@@ -63,7 +66,7 @@ export default function usersApi() {
     } catch (err) {
       console.log(err);
       res.status(401).json({
-        message: "Auth failed",
+        message: "Auth failed from catch",
       });
     }
   }
