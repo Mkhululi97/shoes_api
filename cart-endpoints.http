@@ -7,7 +7,7 @@ content-type: application/json
 
 { 
   "email":"test@test.com",
-  "shoe_id":1
+  "shoe_id":5
 }
 
 ### Remove from cart
