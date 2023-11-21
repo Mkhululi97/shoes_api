@@ -73,30 +73,35 @@ export default function Cart(db) {
   async function getCart(email) {
     let totalShoe;
     let totalCart = 0;
-    let cartid = await db.any(
-      `SELECT cart_id
+    let cartIdCheck = await db.any("SELECT * FROM shoe_api_schema.orders");
+    if (cartIdCheck.length > 0) {
+      let cartid = await db.any(
+        `SELECT cart_id
        FROM shoe_api_schema.orders AS orders
        INNER JOIN shoe_api_schema.shoe_details AS shoe_det ON shoe_det.id=orders.shoe_id
        INNER JOIN shoe_api_schema.cart AS cart ON cart.id=orders.cart_id
        INNER JOIN shoe_api_schema.users AS users ON users.id=cart.user_id
        WHERE email=$1`,
-      [email]
-    );
-    let shoesArr = await db.any(
-      `SELECT shoe_id, name, qty, size, new_price, image_url, (qty*new_price) AS total
+        [email]
+      );
+      let shoesArr = await db.any(
+        `SELECT shoe_id, name, qty, size, new_price, image_url, (qty*new_price) AS total
       FROM shoe_api_schema.orders AS orders
       INNER JOIN shoe_api_schema.shoe_details AS shoe_det ON shoe_det.id=orders.shoe_id
       INNER JOIN shoe_api_schema.cart AS cart ON cart.id=orders.cart_id
       INNER JOIN shoe_api_schema.users AS users ON users.id=cart.user_id
       WHERE email=$1`,
-      [email]
-    );
-    shoesArr.forEach((shoe) => {
-      totalShoe = shoe.qty * shoe.new_price;
-      totalCart += totalShoe;
-    });
-    cartid = cartid[0].cart_id;
-    return { cartid, email, shoesArr, totalCart };
+        [email]
+      );
+      shoesArr.forEach((shoe) => {
+        totalShoe = shoe.qty * shoe.new_price;
+        totalCart += totalShoe;
+      });
+      cartid = cartid[0].cart_id;
+      return { cartid, email, shoesArr, totalCart };
+    } else {
+      return { cartIdCheck, totalCart };
+    }
   }
   async function deleteCartItem(shoe_id) {
     await db.none("DELETE FROM shoe_api_schema.orders WHERE shoe_id=$1", [
@@ -107,9 +112,8 @@ export default function Cart(db) {
     //restore total to zero
 
     //remove all cart items
-    return await db.none(
-      "DELETE FROM shoe_api_schema.cart WHERE user_id=1 RESTART IDENTITY CASCADE"
-    );
+    await db.none("DELETE FROM shoe_api_schema.cart WHERE user_id=1");
+    await db.none("ALTER SEQUENCE shoe_api_schema.cart_id_seq RESTART WITH 1");
   }
   return {
     add,
