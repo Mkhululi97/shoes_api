@@ -1,13 +1,13 @@
 ### Get cart for user
-GET http://localhost:3004/api/cart/test@test.com
+GET http://localhost:3004/api/cart/userep@test.com
 
 ### Add to cart
 POST http://localhost:3004/api/cart/add
 content-type: application/json
 
 { 
-  "email":"test1@tester.com",
-  "shoe_id":7
+  "email":"userep@test.com",
+  "shoe_id":14
 }
 
 ### Remove from cart
@@ -26,12 +26,11 @@ content-type: application/json
   "shoe_id":10
 }
 
-
 ### Cart payment
 POST http://localhost:3004/api/cart/payment
 Content-Type: application/json
 
 {
-  "email":"test@test.com"
+  "email":"userep@test.com",
+  "payment":8590
 }
-

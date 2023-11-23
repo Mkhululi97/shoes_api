@@ -70,25 +70,27 @@ export default function Cart(db) {
     }
     return error;
   }
+  let totalCart = 0;
   async function getCart(email) {
+    totalCart = 0;
     let totalShoe;
-    let totalCart = 0;
     let cartIdCheck = await db.any("SELECT * FROM shoe_api_schema.orders");
     if (cartIdCheck.length > 0) {
       let cartid = await db.any(
         `SELECT cart_id
        FROM shoe_api_schema.orders AS orders
        INNER JOIN shoe_api_schema.shoe_details AS shoe_det ON shoe_det.id=orders.shoe_id
-       INNER JOIN shoe_api_schema.cart AS cart ON cart.id=orders.cart_id
+       INNER JOIN shoe_api_schema.cart AS cart ON cart.user_id=orders.cart_id
        INNER JOIN shoe_api_schema.users AS users ON users.id=cart.user_id
        WHERE email=$1`,
         [email]
       );
+      console.log(email);
       let shoesArr = await db.any(
         `SELECT shoe_id, name, qty, size, new_price, image_url, (qty*new_price) AS total
       FROM shoe_api_schema.orders AS orders
       INNER JOIN shoe_api_schema.shoe_details AS shoe_det ON shoe_det.id=orders.shoe_id
-      INNER JOIN shoe_api_schema.cart AS cart ON cart.id=orders.cart_id
+      INNER JOIN shoe_api_schema.cart AS cart ON cart.user_id=orders.cart_id
       INNER JOIN shoe_api_schema.users AS users ON users.id=cart.user_id
       WHERE email=$1`,
         [email]
@@ -108,14 +110,13 @@ export default function Cart(db) {
       shoe_id,
     ]);
   }
-  async function cartPayment(email) {
-    //restore total to zero
+  async function cartPayment(email, paymentAmount) {
     try {
       let user = await db.oneOrNone(
         "SELECT id FROM shoe_api_schema.users WHERE email=$1",
         [email]
       );
-      if (user !== null) {
+      if (user !== null && paymentAmount >= totalCart) {
         //remove user from cart table
         await db.none("DELETE FROM shoe_api_schema.cart WHERE user_id=$1", [
           user.id,
