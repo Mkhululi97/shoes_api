@@ -7,7 +7,7 @@ content-type: application/json
 
 { 
   "email":"userep@test.com",
-  "shoe_id":14
+  "shoe_id":8
 }
 
 ### Remove from cart
@@ -25,6 +25,8 @@ content-type: application/json
 { 
   "shoe_id":10
 }
+### Sold Shoe
+POST http://localhost:3004/api/cart/sold
 
 ### Cart payment
 POST http://localhost:3004/api/cart/payment
@@ -32,5 +34,5 @@ Content-Type: application/json
 
 {
   "email":"userep@test.com",
-  "payment":8590
+  "payment":23390
 }

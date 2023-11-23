@@ -24,7 +24,7 @@ app.use(
   })
 );
 app.use(cors());
-/* ---------- For populating table with data, purposes only ---------- */
+/* ---------- For populating shoes table, with shoe details purposes, only ---------- */
 // app.get("/", (req, res) => {
 //   res.render("index");
 // });
@@ -42,7 +42,7 @@ app.use(cors());
 //   );
 //   res.redirect("/");
 // });
-/* ---------- For populating table with data, purposes only ---------- */
+/* ---------- For populating shoes table, with shoe details purposes, only ---------- */
 
 /* -------------- SHOE ROUTES -------------- */
 import ShoesApi from "./api/shoes-api.js";
@@ -88,6 +88,7 @@ app.get("/api/cart/:email", cartApi.getCart);
 app.post("/api/cart/add", cartApi.add);
 app.post("/api/cart/remove", cartApi.remove);
 app.post("/api/cart/delete", cartApi.deleteCartItem);
+app.post("/api/cart/sold/", cartApi.shoeSold);
 app.post("/api/cart/payment", cartApi.cartPayment);
 
 /* -------------- CART ROUTES -------------- */

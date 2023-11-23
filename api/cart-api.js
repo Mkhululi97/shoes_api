@@ -46,6 +46,14 @@ export default function shoesApi() {
       console.log(err);
     }
   }
+  async function shoeSold(req, res) {
+    try {
+      await CartFunctions.shoeSold();
+      res.json({ success: "shoe stock updated" });
+    } catch (err) {
+      console.log(err);
+    }
+  }
   async function cartPayment(req, res) {
     try {
       await CartFunctions.cartPayment(req.body.email, req.body.payment);
@@ -60,5 +68,6 @@ export default function shoesApi() {
     deleteCartItem,
     getCart,
     cartPayment,
+    shoeSold,
   };
 }

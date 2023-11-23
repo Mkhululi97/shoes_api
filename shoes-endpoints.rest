@@ -1,7 +1,10 @@
 GET http://localhost:3004/api/shoes
 
 ###
-GET http://localhost:3004/api/shoes/15
+GET http://localhost:3004/api/shoes/8
+
+###
+GET http://localhost:3004/api/shoes/12
 
 ###
 GET http://localhost:3004/api/shoes/brand/Moschino

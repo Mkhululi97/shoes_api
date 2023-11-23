@@ -71,6 +71,7 @@ export default function Cart(db) {
     return error;
   }
   let totalCart = 0;
+  let shoesArr;
   async function getCart(email) {
     totalCart = 0;
     let totalShoe;
@@ -85,8 +86,8 @@ export default function Cart(db) {
        WHERE email=$1`,
         [email]
       );
-      console.log(email);
-      let shoesArr = await db.any(
+
+      shoesArr = await db.any(
         `SELECT shoe_id, name, qty, size, new_price, image_url, (qty*new_price) AS total
       FROM shoe_api_schema.orders AS orders
       INNER JOIN shoe_api_schema.shoe_details AS shoe_det ON shoe_det.id=orders.shoe_id
@@ -110,6 +111,19 @@ export default function Cart(db) {
       shoe_id,
     ]);
   }
+  async function shoeSold() {
+    if (shoesArr !== undefined) {
+      await Promise.all(
+        shoesArr.map(async (shoe) => {
+          // Some asynchronous operation using await
+          await db.none(
+            `UPDATE shoe_api_schema.shoe_details SET quantity =  quantity - $2 WHERE id=$1`,
+            [shoe.shoe_id, shoe.qty]
+          );
+        })
+      );
+    }
+  }
   async function cartPayment(email, paymentAmount) {
     try {
       let user = await db.oneOrNone(
@@ -131,6 +145,11 @@ export default function Cart(db) {
         await db.none(
           "ALTER SEQUENCE shoe_api_schema.orders_id_seq RESTART WITH 1"
         );
+        if (shoesArr.length > 0) {
+          shoesArr.forEach((shoe) => {
+            remove(email, shoe.shoe_id);
+          });
+        }
       }
     } catch (err) {
       console.log(err, "from cartPayment function");
@@ -142,5 +161,6 @@ export default function Cart(db) {
     deleteCartItem,
     getCart,
     cartPayment,
+    shoeSold,
   };
 }
