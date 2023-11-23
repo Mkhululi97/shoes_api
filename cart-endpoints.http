@@ -6,8 +6,8 @@ POST http://localhost:3004/api/cart/add
 content-type: application/json
 
 { 
-  "email":"test@test.com",
-  "shoe_id":5
+  "email":"test1@tester.com",
+  "shoe_id":7
 }
 
 ### Remove from cart
@@ -29,6 +29,9 @@ content-type: application/json
 
 ### Cart payment
 POST http://localhost:3004/api/cart/payment
- 
+Content-Type: application/json
 
-### Pay from cart
+{
+  "email":"test@test.com"
+}
+

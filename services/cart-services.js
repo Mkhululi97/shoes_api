@@ -108,12 +108,32 @@ export default function Cart(db) {
       shoe_id,
     ]);
   }
-  async function cartPayment() {
+  async function cartPayment(email) {
     //restore total to zero
-
-    //remove all cart items
-    await db.none("DELETE FROM shoe_api_schema.cart WHERE user_id=1");
-    await db.none("ALTER SEQUENCE shoe_api_schema.cart_id_seq RESTART WITH 1");
+    try {
+      let user = await db.oneOrNone(
+        "SELECT id FROM shoe_api_schema.users WHERE email=$1",
+        [email]
+      );
+      if (user !== null) {
+        //remove user from cart table
+        await db.none("DELETE FROM shoe_api_schema.cart WHERE user_id=$1", [
+          user.id,
+        ]);
+        //remove user order(s)
+        await db.none("DELETE FROM shoe_api_schema.orders WHERE cart_id=$1", [
+          user.id,
+        ]);
+        await db.none(
+          "ALTER SEQUENCE shoe_api_schema.cart_id_seq RESTART WITH 1"
+        );
+        await db.none(
+          "ALTER SEQUENCE shoe_api_schema.orders_id_seq RESTART WITH 1"
+        );
+      }
+    } catch (err) {
+      console.log(err, "from cartPayment function");
+    }
   }
   return {
     add,

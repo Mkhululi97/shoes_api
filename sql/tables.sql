@@ -29,5 +29,5 @@ CREATE TABLE shoe_api_schema.orders(
     shoe_id INT,
     cart_id INT,
     FOREIGN KEY(shoe_id) REFERENCES shoe_api_schema.shoe_details (id) ON UPDATE CASCADE ON DELETE CASCADE,
-    FOREIGN KEY(cart_id) REFERENCES shoe_api_schema.cart (id) ON UPDATE CASCADE ON DELETE CASCADE
+    FOREIGN KEY(cart_id) REFERENCES shoe_api_schema.cart (user_id) ON UPDATE CASCADE ON DELETE CASCADE
 )
