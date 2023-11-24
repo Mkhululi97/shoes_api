@@ -145,11 +145,7 @@ export default function Cart(db) {
         await db.none(
           "ALTER SEQUENCE shoe_api_schema.orders_id_seq RESTART WITH 1"
         );
-        if (shoesArr.length > 0) {
-          shoesArr.forEach((shoe) => {
-            remove(email, shoe.shoe_id);
-          });
-        }
+        shoeSold();
       }
     } catch (err) {
       console.log(err, "from cartPayment function");
