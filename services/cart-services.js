@@ -115,7 +115,6 @@ export default function Cart(db) {
     if (shoesArr !== undefined) {
       await Promise.all(
         shoesArr.map(async (shoe) => {
-          // Some asynchronous operation using await
           await db.none(
             `UPDATE shoe_api_schema.shoe_details SET quantity =  quantity - $2 WHERE id=$1`,
             [shoe.shoe_id, shoe.qty]
