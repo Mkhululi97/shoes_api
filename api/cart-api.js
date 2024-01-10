@@ -56,8 +56,9 @@ export default function shoesApi() {
   }
   async function cartPayment(req, res) {
     try {
-      await CartFunctions.cartPayment(req.body.email, req.body.payment);
-      res.json({ message: "cart cleared" });
+      let results = await CartFunctions.cartPayment(req.body.email, req.body.payment);
+      res.json({ message: results });//fix. to add cart cleared when 
+      //payment requirments have been met
     } catch (err) {
       console.log(err, "from api");
     }

@@ -33,6 +33,6 @@ POST http://localhost:3004/api/cart/payment
 Content-Type: application/json
 
 {
-  "email":"test@test.com",
-  "payment":233900
+  "email":"userep@test.com",
+  "payment":1
 }
