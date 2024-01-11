@@ -6,8 +6,10 @@ const CartFunctions = cartFunctions(db);
 export default function shoesApi() {
   async function add(req, res) {
     try {
-      await CartFunctions.add(req.body.email, req.body.shoe_id);
-      res.status(200).json({ message: "shoe added to cart" });
+      let result = await CartFunctions.add(req.body.email, req.body.shoe_id);
+      res
+        .status(200)
+        .json({ message: "shoe added to cart", itemsInCart: result });
     } catch (err) {
       console.log(err);
     }
@@ -56,8 +58,11 @@ export default function shoesApi() {
   }
   async function cartPayment(req, res) {
     try {
-      let results = await CartFunctions.cartPayment(req.body.email, req.body.payment);
-      res.json({ message: results });//fix. to add cart cleared when 
+      let results = await CartFunctions.cartPayment(
+        req.body.email,
+        req.body.payment
+      );
+      res.json({ message: results }); //fix. to add cart cleared when
       //payment requirments have been met
     } catch (err) {
       console.log(err, "from api");

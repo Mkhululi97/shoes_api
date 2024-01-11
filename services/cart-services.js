@@ -35,6 +35,16 @@ export default function Cart(db) {
           [1, shoe_id, user_id[0].id]
         );
       }
+      let itemsInCart = await db.oneOrNone(
+        `SELECT SUM (qty) AS items_in_cart
+        FROM shoe_api_schema.orders AS orders
+        INNER JOIN shoe_api_schema.shoe_details AS shoe_det ON shoe_det.id=orders.shoe_id
+        INNER JOIN shoe_api_schema.cart AS cart ON cart.user_id=orders.cart_id
+        INNER JOIN shoe_api_schema.users AS users ON users.id=cart.user_id
+        WHERE email=$1`,
+        email
+      );
+      return itemsInCart["items_in_cart"];
     } catch (err) {
       console.log(err);
     }
@@ -125,21 +135,22 @@ export default function Cart(db) {
   }
   async function cartPayment(email, paymentAmount) {
     try {
-    let totalCart = await db.oneOrNone(`SELECT SUM(qty * new_price) AS totalCart
+      let totalCart =
+        await db.oneOrNone(`SELECT SUM(qty * new_price) AS totalCart
     FROM shoe_api_schema.orders AS orders
     INNER JOIN shoe_api_schema.shoe_details AS shoe_det ON shoe_det.id=orders.shoe_id
     INNER JOIN shoe_api_schema.cart AS cart ON cart.user_id=orders.cart_id
     INNER JOIN shoe_api_schema.users AS users ON users.id=cart.user_id
     WHERE email='user@test.com'
-    `)
-    totalCart = totalCart["totalcart"]
+    `);
+      totalCart = totalCart["totalcart"];
       let message;
       let user = await db.oneOrNone(
         "SELECT id FROM shoe_api_schema.users WHERE email=$1",
         [email]
       );
-      if(paymentAmount < totalCart){
-        return message='Insufficient funds'
+      if (paymentAmount < totalCart) {
+        return (message = "Insufficient funds");
       }
       if (user !== null && Number(paymentAmount) >= totalCart) {
         //remove user from cart table
@@ -157,7 +168,7 @@ export default function Cart(db) {
           "ALTER SEQUENCE shoe_api_schema.orders_id_seq RESTART WITH 1"
         );
         shoeSold();
-        return message="Payment Successful"
+        return (message = "Payment Successful");
       }
     } catch (err) {
       console.log(err, "from cartPayment function");
