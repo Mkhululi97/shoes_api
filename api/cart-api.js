@@ -7,9 +7,10 @@ export default function shoesApi() {
   async function add(req, res) {
     try {
       let result = await CartFunctions.add(req.body.email, req.body.shoe_id);
+      let cartItemsCounter = await CartFunctions.countItemsInCart(result);
       res
         .status(200)
-        .json({ message: "shoe added to cart", itemsInCart: result });
+        .json({ message: "shoe added to cart", itemsInCart: cartItemsCounter });
     } catch (err) {
       console.log(err);
     }
@@ -17,13 +18,15 @@ export default function shoesApi() {
   async function remove(req, res, next) {
     try {
       let result = await CartFunctions.remove(req.body.email, req.body.shoe_id);
-
+      let cartItemsCounter = await CartFunctions.countItemsInCart(result);
       if (result === undefined) {
         res.status(201).json({
           message: "Shoe updated on the",
         });
       } else {
-        res.status(409).json({ message: result });
+        res
+          .status(200)
+          .json({ response: result, itemsInCart: cartItemsCounter });
         next();
       }
     } catch (err) {

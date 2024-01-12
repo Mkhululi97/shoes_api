@@ -35,16 +35,7 @@ export default function Cart(db) {
           [1, shoe_id, user_id[0].id]
         );
       }
-      let itemsInCart = await db.oneOrNone(
-        `SELECT SUM (qty) AS items_in_cart
-        FROM shoe_api_schema.orders AS orders
-        INNER JOIN shoe_api_schema.shoe_details AS shoe_det ON shoe_det.id=orders.shoe_id
-        INNER JOIN shoe_api_schema.cart AS cart ON cart.user_id=orders.cart_id
-        INNER JOIN shoe_api_schema.users AS users ON users.id=cart.user_id
-        WHERE email=$1`,
-        email
-      );
-      return itemsInCart["items_in_cart"];
+      return { email };
     } catch (err) {
       console.log(err);
     }
@@ -78,7 +69,20 @@ export default function Cart(db) {
     } catch (err) {
       console.log(err);
     }
-    return error;
+    return { error, email };
+  }
+  async function countItemsInCart(userObj) {
+    const { email } = userObj;
+    let itemsInCart = await db.oneOrNone(
+      `SELECT SUM (qty) AS items_in_cart
+      FROM shoe_api_schema.orders AS orders
+      INNER JOIN shoe_api_schema.shoe_details AS shoe_det ON shoe_det.id=orders.shoe_id
+      INNER JOIN shoe_api_schema.cart AS cart ON cart.user_id=orders.cart_id
+      INNER JOIN shoe_api_schema.users AS users ON users.id=cart.user_id
+      WHERE email=$1`,
+      email
+    );
+    return itemsInCart["items_in_cart"];
   }
   let totalCart = 0;
   let shoesArr;
@@ -181,5 +185,6 @@ export default function Cart(db) {
     getCart,
     cartPayment,
     shoeSold,
+    countItemsInCart,
   };
 }
