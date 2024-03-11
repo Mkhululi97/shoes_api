@@ -7,7 +7,7 @@ GET http://localhost:3004/api/shoes/8
 GET http://localhost:3004/api/shoes/12
 
 ###
-GET http://localhost:3004/api/shoes/brand/Moschino
+GET http://localhost:3004/api/shoes/brand/Naked Wolfe
 
 ###
 GET http://localhost:3004/api/shoes/size/7
@@ -32,14 +32,14 @@ POST http://localhost:3004/api/shoes
 Content-Type: application/json
 
 {
-  "brand":"NAKED WOLFE",
-  "name":"NAKED WOLFE MAN SNOW SNEAKER KOSA 00148",
+  "brand":"ANTONY MORATO",
+  "name":"ANTONY MORATO MAN FOOTWEAR MMFW01577-LE300001-1000",
   "size":"8",
-  "color":"Brown",
+  "color":"White",
   "quantity":"5",
-  "price": "12,400",
-  "image":"https://www.hydraulicsstores.co.za/wp-content/uploads/2023/10/Side-4727-800x1000.jpg"
+  "image_url":"https://www.hydraulicsstores.co.za/wp-content/uploads/2024/02/MMFW01577-LE300001-1000_01.jpg",
+  "new_price": "2375"
 }
 
 ###
-POST http://localhost:3004/api/shoes/sold/3
+POST http://localhost:3004/api/shoes/sold/24

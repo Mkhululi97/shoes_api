@@ -4,13 +4,21 @@ import db from "../database.js";
 const CartFunctions = cartFunctions(db);
 
 export default function shoesApi() {
+  //update counter for the number of items in cart
+  async function countItemsInCart(data) {
+    return await CartFunctions.countItemsInCart(data);
+  }
   async function add(req, res) {
     try {
       let result = await CartFunctions.add(req.body.email, req.body.shoe_id);
-      let cartItemsCounter = await CartFunctions.countItemsInCart(result);
-      res
-        .status(200)
-        .json({ message: "shoe added to cart", itemsInCart: cartItemsCounter });
+      //get counter for the number of items in cart
+      let cartItemsCounter = await countItemsInCart(result);
+      let getCart = await CartFunctions.getCart(req.body.email);
+      res.status(200).json({
+        message: "shoe added to cart",
+        itemsInCart: cartItemsCounter,
+        cart: getCart,
+      });
     } catch (err) {
       console.log(err);
     }
@@ -18,15 +26,18 @@ export default function shoesApi() {
   async function remove(req, res, next) {
     try {
       let result = await CartFunctions.remove(req.body.email, req.body.shoe_id);
-      let cartItemsCounter = await CartFunctions.countItemsInCart(result);
+      let cartItemsCounter = await countItemsInCart(result);
+      let getCart = await CartFunctions.getCart(req.body.email);
       if (result === undefined) {
         res.status(201).json({
           message: "Shoe updated on the",
         });
       } else {
-        res
-          .status(200)
-          .json({ response: result, itemsInCart: cartItemsCounter });
+        res.status(200).json({
+          response: result,
+          itemsInCart: cartItemsCounter,
+          cart: getCart,
+        });
         next();
       }
     } catch (err) {
@@ -44,8 +55,11 @@ export default function shoesApi() {
   }
   async function deleteCartItem(req, res) {
     try {
-      const inputshoeid = req.body.shoe_id;
-      await CartFunctions.deleteCartItem(inputshoeid);
+      const { shoe_id, email } = req.body;
+      await CartFunctions.deleteCartItem(shoe_id, email);
+      let getCart = await CartFunctions.getCart(req.body.email);
+      let cartItemsCounter = await countItemsInCart(email);
+      res.status(200).json({ itemsInCart: cartItemsCounter, cart: getCart });
     } catch (err) {
       res.json({ err: err });
       console.log(err);
@@ -53,10 +67,11 @@ export default function shoesApi() {
   }
   async function shoeSold(req, res) {
     try {
-      await CartFunctions.shoeSold();
-      res.json({ success: "shoe stock updated" });
+      let result = await CartFunctions.shoeSold();
+      res.json(result);
     } catch (err) {
       console.log(err);
+      res.json(err);
     }
   }
   async function cartPayment(req, res) {
@@ -78,5 +93,6 @@ export default function shoesApi() {
     getCart,
     cartPayment,
     shoeSold,
+    countItemsInCart,
   };
 }

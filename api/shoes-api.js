@@ -107,8 +107,8 @@ export default function shoesApi() {
         size: req.body.size,
         color: req.body.color,
         quantity: req.body.quantity,
-        price: req.body.price,
-        image: req.body.image,
+        image_url: req.body.image_url,
+        new_price: req.body.new_price,
       });
       res.status(201).json({ message: "Shoe added to the database" });
     } catch (err) {
@@ -118,12 +118,11 @@ export default function shoesApi() {
   }
   async function updateInventory(req, res) {
     try {
-      await ShoeFunctions.updateInventory(req.params.id);
-      res
-        .status(201)
-        .json({ message: `Quantity for ${req.params.id} shoe updated` });
+      let result = await ShoeFunctions.updateInventory(req.params.id);
+      res.status(201).json(result);
     } catch (err) {
       console.log(err);
+      res.json(err);
     }
   }
   return {

@@ -1,9 +1,11 @@
 import users from "../services/users-services.js";
+import cartFunctions from "../services/cart-services.js";
 import db from "../database.js";
 import "dotenv/config";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 const Users = users(db);
+const CartFunctions = cartFunctions(db);
 export default function usersApi() {
   async function userSignup(req, res, next) {
     bcrypt.hash(req.body.password, 10, async (err, hash) => {
@@ -36,8 +38,11 @@ export default function usersApi() {
 
   async function userLogin(req, res, next) {
     try {
-      let user = await Users.userLogin({ email: req.body.email });
-      bcrypt.compare(req.body.password, user.password, (err, result) => {
+      const { email, password } = req.body;
+      //get the count of items in cart for the active user.
+      let itemsInCart = await CartFunctions.countItemsInCart(email);
+      let user = await Users.userLogin({ email });
+      bcrypt.compare(password, user.password, (err, result) => {
         if (err) {
           console.log(err);
           return res.status(401).json({
@@ -56,10 +61,16 @@ export default function usersApi() {
             }
           );
           user = { email: user.email, is_admin: user.is_admin };
+
           return res.status(200).json({
             user: user,
             message: "Auth successful",
             token: token,
+            itemsInCart,
+          });
+        } else {
+          return res.json({
+            message: user,
           });
         }
       });

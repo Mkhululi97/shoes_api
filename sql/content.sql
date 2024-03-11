@@ -1,27 +1,26 @@
-INSERT INTO shoe_api_schema.shoe_details (brand, color, name, size, price, quantity, image_url)
-VALUES
-("ZANOTTI", "Black", "(CORE) GIUSEPPE ZANOTTI MAN SNEAKER RU00010 003", "7", "13,490", "2", "https://www.hydraulicsstores.co.za/wp-content/uploads/2023/10/Side_4476_0010_4492-800x1000.jpg"),
-
-("ZANOTTI", "Black", "GIUSEPPE ZANOTTI MAN SNEAKER RU30004 001", "5", "25,190", "4", "https://www.hydraulicsstores.co.za/wp-content/uploads/2023/10/Side_4476_0004_4505-800x1000.jpg"),
-("ZANOTTI", "White", "GIUSEPPE ZANOTTI MAN SNEAKER RU30010 001", "8", "19,590", "6", "https://www.hydraulicsstores.co.za/wp-content/uploads/2023/10/Side-4502-800x1000.jpg"),
-("MOSCHINO", "Black", "MOSCHINO MEN’S SHOE MB10403G1HGA0000", "8", "9,690", "8", "https://www.hydraulicsstores.co.za/wp-content/uploads/2023/10/Side_4476_0011_4538-800x1000.jpg"),
-
-("MOSCHINO", "Black", "MOSCHINO MEN’S SHOE MB10624G1HGB5000", "9", "18,490", "1", "https://www.hydraulicsstores.co.za/wp-content/uploads/2023/10/Side_4476-4524-800x1000.jpg"),
-("MOSCHINO", "Black", "MOSCHINO MAN SNEAKER MM15054G1H101000", "7", "12,590", "5", "https://www.hydraulicsstores.co.za/wp-content/uploads/2023/10/Side_4476_0017_4526-800x1000.jpg"),
-("MOSCHINO", "Black", "MOSCHINO MEN’S MULE MB28532G1HG1500", "7", "4,690", "2", "https://www.hydraulicsstores.co.za/wp-content/uploads/2023/05/Side-4587-800x1000.jpg"),
-
-("MOSCHINO", "White", "MOSCHINO MEN’S SNEAKERS MB15954G1HG37100", "9", "10,890", "7", "https://www.hydraulicsstores.co.za/wp-content/uploads/2023/10/Side_4476_0010_4669-800x1000.jpg"),
-("MOSCHINO", "Black", "MOSCHINO MEN’S SHOE MB10613G1HG35000", "7", "14,890", "5", "https://www.hydraulicsstores.co.za/wp-content/uploads/2023/10/Side_4476_0001_4522-800x1000.jpg"),
-("MOSCHINO", "Black", "MOSCHINO MAN CROC STYLE MB10903G1HG29000", "9", "6,390", "2", "https://www.hydraulicsstores.co.za/wp-content/uploads/2023/10/Side_4476_0002_4577-800x1000.jpg"),
-
-("MOSCHINO", "Black", "MOSCHINO MEN’S SANDAL MB16255G1HG3A00A", "8", "8,690", "4", "https://www.hydraulicsstores.co.za/wp-content/uploads/2023/10/Side_4476_0009_4540-800x1000.jpg"),
-("MOSCHINO", "Black", "MOSCHINO MAN SNEAKER MB15652G1HGD500A", "6", "12,590", "9", "https://www.hydraulicsstores.co.za/wp-content/uploads/2023/10/Side_4476_0014_4481-800x1000.jpg"),
-("MOSCHINO", "White", "MOSCHINO MAN SNEAKER MB15862G1HGD110B", "7", "10,490", "1", "https://www.hydraulicsstores.co.za/wp-content/uploads/2023/10/Side_4476_0017_4698-800x1000.jpg"),
-
-("MOSCHINO", "Brown", "MOSCHINO MAN SNEAKER MM15012G1H10130A", "11", "8,590", "3", "https://www.hydraulicsstores.co.za/wp-content/uploads/2023/10/Side_4476_0015_4476-800x1000.jpg"),
-("MOSCHINO", "Black", "MOSCHINO MEN’S SNEAKERS MB15944G1HGAG00A", "11", "24,590", "5", "https://www.hydraulicsstores.co.za/wp-content/uploads/2023/10/Side_4476_0008_4498-800x1000.jpg"),
-("MOSCHINO", "White", "MOSCHINO MEN’S SNEAKERS MB15402G1HGA0100", "10", "6,490", "2", "https://www.hydraulicsstores.co.za/wp-content/uploads/2023/10/Side_4476_0004_4716-800x1000.jpg"),
-
-("MOSCHINO", "Black", "MOSCHINO MEN’S SNEAKERS MB15402G1HGA000A", "12", "6,490", "3", "https://www.hydraulicsstores.co.za/wp-content/uploads/2023/10/Side_4476_0011_4491-800x1000.jpg"),
-("NAKED WOLFE", "White", "NAKED WOLFE MAN SNOW SNEAKER KOSA 00148", "9", "8,390", "5", "https://www.hydraulicsstores.co.za/wp-content/uploads/2023/10/Side-4727-800x1000.jpg"),
-("NAKED WOLFE", "Black", "NAKED WOLFE MAN KOSA BLACK BOX SNEAKER KOSA 00007", "8", "8,990", "2", "https://www.hydraulicsstores.co.za/wp-content/uploads/2023/10/Side_4476_0001_4722-800x1000.jpg")
+INSERT INTO shoe_api_schema.shoe_details(brand, name, size, color, quantity, image_url, new_price)
+VALUES ('ZANOTTI', '(CORE) GIUSEPPE ZANOTTI MAN SNEAKER RU010 003', '7', 'Black', '10', 'https://www.hydraulicsstores.co.za/wp-content/uploads/2023/10/Side_4476_0010_4492-800x1000.jpg', '13490'),
+('ZANOTTI', 'GIUSEPPE ZANOTTI MAN SNEAKER RU30 001', '5', 'Black', '14', 'https://www.hydraulicsstores.co.za/wp-content/uploads/2023/10/Side_4476_0004_4505-800x1000.jpg', '25190'),
+('ZANOTTI', 'GIUSEPPE ZANOTTI MAN SNEAKER RU30 001', '8', 'Black','12', 'https://www.hydraulicsstores.co.za/wp-content/uploads/2023/10/Side-4502-800x1000.jpg', '19590'),
+('MOSCHINO', 'MOSCHINO MEN''S SHOE MB10403G1GA', '8', 'Black', '18', 'https://www.hydraulicsstores.co.za/wp-content/uploads/2023/10/Side_4476_0011_4538-800x1000.jpg', '9690'),
+('MOSCHINO', 'MOSCHINO MEN''S SHOE MB10624G1H', '9', 'Black', '11', 'https://www.hydraulicsstores.co.za/wp-content/uploads/2023/10/Side_4476-4524-800x1000.jpg', '18490'),
+('MOSCHINO', 'MOSCHINO MAN SNEAKER MM15054G1W', '7', 'Black', '8', 'https://www.hydraulicsstores.co.za/wp-content/uploads/2023/10/Side_4476_0017_4526-800x1000.jpg', '12590'),
+('MOSCHINO', 'MOSCHINO MEN''S MULE MB28532G1E', '7', 'Black', '12', 'https://www.hydraulicsstores.co.za/wp-content/uploads/2023/05/Side-4587-800x1000.jpg', '4690'),
+('MOSCHINO', 'MOSCHINO MEN''S SNEAKERS MB15954G7E', '9', 'White','17', 'https://www.hydraulicsstores.co.za/wp-content/uploads/2023/10/Side_4476_0010_4669-800x1000.jpg', '10890'),
+('MOSCHINO', 'MOSCHINO MEN''S SHOE MB10613G1H12G', '7', 'Black', '15', 'https://www.hydraulicsstores.co.za/wp-content/uploads/2023/10/Side_4476_0001_4522-800x1000.jpg', '14890'),
+('MOSCHINO', 'MOSCHINO MAN CROC STYLE MB10903G10H', '9', 'Black', '12', 'https://www.hydraulicsstores.co.za/wp-content/uploads/2023/10/Side_4476_0002_4577-800x1000.jpg', '6390'),
+('MOSCHINO', 'MOSCHINO MEN''S SANDAL MB16255G10A', '8', 'Black', '14', 'https://www.hydraulicsstores.co.za/wp-content/uploads/2023/10/Side_4476_0009_4540-800x1000.jpg', '8690'),
+('MOSCHINO', 'MOSCHINO MAN SNEAKER MB15652G1H0A', '6', 'Black', '19', 'https://www.hydraulicsstores.co.za/wp-content/uploads/2023/10/Side_4476_0014_4481-800x1000.jpg', '12590'),
+('MOSCHINO', 'MOSCHINO MAN SNEAKER MB15862G1H1B', '7',  'White', '11', 'https://www.hydraulicsstores.co.za/wp-content/uploads/2023/10/Side_4476_0017_4698-800x1000.jpg', '10490'),
+('MOSCHINO', 'MOSCHINO MAN SNEAKER MM15012G1H0A', '11', 'Brown', '13', 'https://www.hydraulicsstores.co.za/wp-content/uploads/2023/10/Side_4476_0015_4476-800x1000.jpg', '8590'),
+('MOSCHINO', 'MOSCHINO MEN''S SNEAKERS MB15944G1H34E', '11', 'Black', '15', 'https://www.hydraulicsstores.co.za/wp-content/uploads/2023/10/Side_4476_0008_4498-800x1000.jpg', '24590'),
+('MOSCHINO', 'MOSCHINO MEN''S SNEAKERS MB15402G1H4R', '10', 'White','12', 'https://www.hydraulicsstores.co.za/wp-content/uploads/2023/10/Side_4476_0004_4716-800x1000.jpg', '6490'),
+('MOSCHINO',  'MOSCHINO MEN''S SNEAKERS MB154G1A00A', '12', 'Black', '13', 'https://www.hydraulicsstores.co.za/wp-content/uploads/2023/10/Side_4476_0011_4491-800x1000.jpg', '6490'),
+('NAKED WOLFE', 'NAKED WOLFE MAN SNOW SNEAKER KOSA 00148', '9', 'White','15', 'https://www.hydraulicsstores.co.za/wp-content/uploads/2023/10/Side-4727-800x1000.jpg', '8390'),
+('NAKED WOLFE', 'NAKED WOLFE MAN KOSA BLACK BOX SNEAKER KOSA 00007', '8', 'Black', '1', 'https://www.hydraulicsstores.co.za/wp-content/uploads/2023/10/Side_4476_0001_4722-800x1000.jpg', '8990'),
+('PHILIPP PLEIN', '(CORE) PHILIPP PLEIN LEATHER LO TOP HEXAGON', '11', 'Black', '10', 'https://www.hydraulicsstores.co.za/wp-content/uploads/2024/01/DSC07103-990x1238.jpg', '9793'),
+('PHILIPP PLEIN', 'PHILIPP PLEIN LO TOP SNEAKERS SKULL & BONES', '10', 'Black', '2', 'https://www.hydraulicsstores.co.za/wp-content/uploads/2024/01/DSC07082-scaled.jpg?v=68caa8201064', '8495'),
+('PHILIPP PLEIN', 'PHILIPP PLEIN LO TOP SNEAKERS USC0502 PCO008N 0202', '10', 'Black', '1', 'https://www.hydraulicsstores.co.za/wp-content/uploads/2024/01/DSC07095-800x1000.jpg', '9445'),
+('PHILIPP PLEIN', 'PHILIPP PLEIN LO TOP SNEAKERS USC0502 PCO008N 0113', '12', 'White','10', 'https://www.hydraulicsstores.co.za/wp-content/uploads/2024/01/DSC07072-990x1238.jpg', '9445'),
+('MOSCHINO', 'MOSCHINO MEN''S SHOE MM10103G1I10A', '9', 'Brown', '2', 'https://www.hydraulicsstores.co.za/wp-content/uploads/2024/01/DSC01920-990x1238.jpg', '9990'),
+('MOSCHINO', 'MOSCHINO MEN''S MULE MM28043G1I10A', '8', 'Brown', '12', 'https://www.hydraulicsstores.co.za/wp-content/uploads/2024/01/DSC01912-scaled.jpg?v=68caa8201064', '12790')

@@ -1,13 +1,13 @@
 ### Get cart for user
-GET http://localhost:3004/api/cart/user@test.com
+GET http://localhost:3004/api/cart/test@test.com
 
 ### Add to cart
 POST http://localhost:3004/api/cart/add
 content-type: application/json
 
 { 
-  "email":"user@test.com",
-  "shoe_id":11
+  "email":"test@test.com",
+  "shoe_id":2
 }
 
 ### Remove from cart
@@ -15,15 +15,16 @@ POST http://localhost:3004/api/cart/remove
 content-type: application/json
 
 { 
-  "email":"user@test.com",
-  "shoe_id":11
+  "email":"test@test.com",
+  "shoe_id":12
 }
 ### Delete Item From Cart
 POST http://localhost:3004/api/cart/delete
 content-type: application/json
 
 { 
-  "shoe_id":10
+  "email":"test@test.com",
+  "shoe_id":2
 }
 ### Sold Shoe
 POST http://localhost:3004/api/cart/sold

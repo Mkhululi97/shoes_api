@@ -70,7 +70,7 @@ app.get(
   shoesApi.getAllShoesBySizeAndColor
 );
 app.post("/api/shoes/sold/:id", shoesApi.updateInventory);
-app.post("/api/shoes/", hideEndpoint, shoesApi.addShoe);
+app.post("/api/shoes/", shoesApi.addShoe);
 /* -------------- SHOE ROUTES -------------- */
 
 /* -------------- USERS ROUTES -------------- */

@@ -1,7 +1,7 @@
 export default function shoeFunctions(db) {
   async function getAllShoes() {
     return await db.any(
-      "SELECT * FROM shoe_api_schema.shoe_details ORDER BY id ASC"
+      "SELECT * FROM shoe_api_schema.shoe_details ORDER BY id DESC"
     );
   }
   async function getShoeById(id) {
@@ -11,6 +11,7 @@ export default function shoeFunctions(db) {
     );
   }
   async function getAllShoesByBrand(brand) {
+    brand = brand.toUpperCase();
     return await db.any(
       "SELECT * FROM shoe_api_schema.shoe_details WHERE brand=$1",
       [brand]
@@ -55,22 +56,30 @@ export default function shoeFunctions(db) {
     );
   }
   async function addShoe(shoeDetails) {
-    const { brand, name, size, color, quantity, new_price, image } =
+    const { brand, name, size, color, quantity, image_url, new_price } =
       shoeDetails;
     await db.none(
-      "insert into shoe_api_schema.shoe_details (brand, name, size, color, quantity, new_price, image_url) values($1, $2, $3, $4, $5, $6, $7)",
-      [brand, name, size, color, quantity, new_price, image]
+      "INSERT INTO shoe_api_schema.shoe_details (brand, name, size, color, quantity, image_url, new_price) values($1, $2, $3, $4, $5, $6, $7)",
+      [brand, name, size, color, quantity, image_url, new_price]
     );
   }
   async function updateInventory(id) {
-    await db.none(
-      "UPDATE shoe_api_schema.shoe_details SET quantity = quantity - 1 WHERE id=$1",
-      id
-    );
-    return await db.oneOrNone(
+    let message;
+    let shoesLeft = await db.oneOrNone(
       "SELECT quantity FROM shoe_api_schema.shoe_details WHERE id=$1",
-      id
+      [id]
     );
+    if (shoesLeft.quantity > 0) {
+      await db.none(
+        "UPDATE shoe_api_schema.shoe_details SET quantity = quantity - 1 WHERE id=$1",
+        id
+      );
+      message = "shoe stock adjusted";
+    } else {
+      message = "shoe sold out";
+    }
+    shoesLeft = shoesLeft.quantity;
+    return { shoesLeft, message };
   }
   return {
     getAllShoes,
