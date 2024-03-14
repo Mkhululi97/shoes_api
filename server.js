@@ -67,7 +67,7 @@ app.get(
 );
 app.get(
   "/api/shoes/brand/:brandname/size/:size/color/:color",
-  shoesApi.getAllShoesBySizeAndColor
+  shoesApi.getAllShoesByBrandAndSizeAndColor
 );
 app.post("/api/shoes/sold/:id", shoesApi.updateInventory);
 app.post("/api/shoes/", shoesApi.addShoe);

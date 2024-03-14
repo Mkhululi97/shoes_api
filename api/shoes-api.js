@@ -94,7 +94,7 @@ export default function shoesApi() {
           size: req.params.size,
           color: req.params.color,
         });
-      res.status.json(shoeListByBrandAndSizeAndColor);
+      res.status(200).json(shoeListByBrandAndSizeAndColor);
     } catch (err) {
       console.log(err);
     }
