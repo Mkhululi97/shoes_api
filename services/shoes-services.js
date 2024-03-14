@@ -33,13 +33,13 @@ export default function shoeFunctions(db) {
   async function getAllShoesByBrandAndSize(brand, size) {
     return await db.any(
       "SELECT * FROM shoe_api_schema.shoe_details WHERE brand=$1 AND size=$2",
-      [brand, size]
+      [brand.toUpperCase(), size]
     );
   }
   async function getAllShoesByBrandAndColor(brand, color) {
     return await db.any(
       "SELECT * FROM shoe_api_schema.shoe_details WHERE brand=$1 AND color=$2",
-      [brand, color]
+      [brand.toUpperCase(), color]
     );
   }
   async function getAllShoesBySizeAndColor(size, color) {
@@ -52,7 +52,7 @@ export default function shoeFunctions(db) {
     const { brand, size, color } = shoeDetails;
     return await db.any(
       "SELECT * FROM shoe_api_schema.shoe_details WHERE brand=$1 AND size=$2 AND color=$3",
-      [brand, size, color]
+      [brand.toUpperCase(), size, color]
     );
   }
   async function addShoe(shoeDetails) {
